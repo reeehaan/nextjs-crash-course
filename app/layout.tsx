@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
-import { Schibsted_Grotesk, Martian_Mono } from "next/font/google";
+import { Schibsted_Grotesk, Martian_Mono, Geist } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import LightRays from "@/components/LightRays";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const schibstedGrotesk = Schibsted_Grotesk({
   variable: "--font-schibsted-grotesk",
@@ -23,11 +27,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={cn("font-sans", geist.variable)}>
       <body
         className={`${schibstedGrotesk.variable} ${martianMono.variable} min-h-screen antialiased`}
       >
-        {children}
+        <div className="absolute inset-0 top-0 z-[-1] min-h-screen">
+          <LightRays
+            raysOrigin="top-center"
+            raysColor="#5dfeca"
+            raysSpeed={0.5}
+            lightSpread={0.8}
+            rayLength={3}
+            followMouse={true}
+            mouseInfluence={0.1}
+            noiseAmount={0}
+            distortion={0}
+            className="custom-rays"
+            pulsating={false}
+            fadeDistance={1}
+            saturation={1}
+          />
+        </div>
+        <main>
+          {children}
+        </main>
       </body>
     </html>
   );
