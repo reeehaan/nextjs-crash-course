@@ -41,3 +41,15 @@ export async  function POST(req: NextRequest) {
         return NextResponse.json({message: 'event creation failed', error: err instanceof Error ? err.message : 'Unknow'}, {status : 500});
     }
 }
+
+export async function GET(){
+    try{
+        await connectToDatabase();
+
+        const events = await EventModel.find().sort({createdAt: -1});
+
+        return NextResponse.json({message : 'Event fetched successfully', events}, {status : 200});
+    }catch(err){
+        return NextResponse.json({message: 'Event fetching failed', error: err},{status : 404});
+    }
+}
