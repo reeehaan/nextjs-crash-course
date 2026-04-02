@@ -15,7 +15,7 @@ export interface IBooking extends Document {
 
 const bookingSchema = new Schema<IBooking>(
   {
-    // Indexed for fast lookups of all bookings belonging to a given event.
+    // Indexed for fast lookups of all bookings belonging to a given events.
     eventId: {
       type:     Schema.Types.ObjectId,
       ref:      "Event",
